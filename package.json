@@ -1,0 +1,27 @@
+{
+  "name": "philips-hue-bot",
+  "version": "1.0.0",
+  "description": "Simple app to allow Twitch viewers to control the streamers light via a local app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nathanhenniges/philips-hue-bot.git"
+  },
+  "keywords": [
+    "philips",
+    "hue",
+    "bot",
+    "twitch",
+    "control",
+    "lights"
+  ],
+  "author": "Nathan Henniges (MrDemonWolf)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nathanhenniges/philips-hue-bot/issues"
+  },
+  "homepage": "https://github.com/nathanhenniges/philips-hue-bot#readme"
+}
