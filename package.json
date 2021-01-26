@@ -4,7 +4,12 @@
   "description": "Simple app to allow Twitch viewers to control the streamers light via a local app.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "lint": "eslint . --ext .js --fix",
+    "format": "prettier-eslint --write $PWD/'**/*.{js,json}'",
+    "build:dev": "postcss tailwind.css -o public/assets/css/main.css",
+    "build:prod": "NODE_ENV=production postcss tailwind.css -o public/assets/css/main.css"
   },
   "repository": {
     "type": "git",
@@ -23,5 +28,43 @@
   "bugs": {
     "url": "https://github.com/nathanhenniges/philips-hue-bot/issues"
   },
-  "homepage": "https://github.com/nathanhenniges/philips-hue-bot#readme"
+  "homepage": "https://github.com/nathanhenniges/philips-hue-bot#readme",
+  "dependencies": {
+    "@q42philips/hue-color-converter": "^1.0.0",
+    "@tailwindcss/aspect-ratio": "^0.2.0",
+    "@tailwindcss/forms": "^0.2.1",
+    "@tailwindcss/typography": "^0.4.0",
+    "autoprefixer": "^10.2.3",
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "connect-mongo": "^3.2.0",
+    "consola": "^2.15.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.1",
+    "method-override": "^3.0.0",
+    "moment": "^2.29.1",
+    "mongoose": "^5.11.13",
+    "morgan": "^1.10.0",
+    "parse-color": "^1.0.0",
+    "passport": "^0.4.1",
+    "passport-hue": "^1.0.2",
+    "passport-twitch": "^1.0.3",
+    "passport-twitch-new": "0.0.2",
+    "postcss": "^8.2.4",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "nodemon": "^2.0.7",
+    "prettier-eslint-cli": "^5.0.0"
+  }
 }

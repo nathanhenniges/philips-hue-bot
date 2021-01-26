@@ -1,0 +1,153 @@
+<nav x-data="{ open: false }" class="bg-gray-800">
+  <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <img
+            class="block w-auto h-8 lg:hidden"
+            src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+            alt="Workflow"
+          />
+          <img
+            class="hidden w-auto h-8 lg:block"
+            src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+            alt="Workflow"
+          />
+        </div>
+      </div>
+      <div class="hidden sm:ml-6 sm:block">
+        <div class="flex items-center">
+          <!-- Profile dropdown -->
+          <div
+            @click.away="open = false"
+            class="relative ml-3"
+            x-data="{ open: false }"
+          >
+            <div>
+              <button
+                @click="open = !open"
+                class="flex text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                id="user-menu"
+                aria-haspopup="true"
+                x-bind:aria-expanded="open"
+              >
+                <span class="sr-only">Open user menu</span>
+                <img
+                  class="w-8 h-8 rounded-full"
+                  src="<%= user.profile_image_url %>"
+                  alt="<%= user.username %> User Profile"
+                />
+              </button>
+            </div>
+            <transition
+              enter-active-class="transition duration-100 ease-out"
+              enter-class="transform scale-95 opacity-0"
+              enter-to-class="transform scale-100 opacity-100"
+              leave-active-class="transition duration-75 ease-in"
+              leave-class="transform scale-100 opacity-100"
+              leave-to-class="transform scale-95 opacity-0"
+              ><div
+                x-show="open"
+                x-description="Profile dropdown panel, show/hide based on dropdown state."
+                class="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="user-menu"
+              >
+                <a
+                  href="/logout"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  role="menuitem"
+                  >Sign out</a
+                >
+              </div></transition
+            >
+          </div>
+        </div>
+      </div>
+      <div class="flex -mr-2 sm:hidden">
+        <!-- Mobile menu button -->
+        <button
+          @click="open = !open"
+          class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-insest focus:ring-white"
+          x-bind:aria-expanded="open"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open main menu</span>
+          <!-- Icon when menu is closed. -->
+          <svg
+            x-state:on="Menu open"
+            x-state:off="Menu closed"
+            :class="{ 'hidden': open, 'block': !open }"
+            class="block w-6 h-6"
+            x-description="Heroicon name: menu"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+          <!-- Icon when menu is open. -->
+          <svg
+            x-state:on="Menu open"
+            x-state:off="Menu closed"
+            :class="{ 'hidden': !open, 'block': open }"
+            class="hidden w-6 h-6"
+            x-description="Heroicon name: x"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    x-description="Mobile menu, toggle classes based on menu state."
+    x-state:on="Menu open"
+    x-state:off="Menu closed"
+    :class="{ 'block': open, 'hidden': !open }"
+    class="hidden sm:hidden"
+  >
+    <div class="pt-4 pb-3 border-t border-gray-700">
+      <div class="flex items-center px-5">
+        <div class="flex-shrink-0">
+          <img
+            class="w-10 h-10 rounded-full"
+            src="<%= user.profile_image_url %>"
+            alt="<%= user.username %> User Profile"
+          />
+        </div>
+        <div class="ml-3">
+          <div class="text-base font-medium text-white">
+            <%= user.username %>
+          </div>
+        </div>
+      </div>
+      <div class="px-2 mt-3 space-y-1">
+        <a
+          href="/logout"
+          class="block px-3 py-2 text-base font-medium text-gray-400 rounded-md hover:text-white hover:bg-gray-700"
+          >Sign out</a
+        >
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,484 @@
+<%- include('../partials/header'); -%>
+
+<body class="min-h-screen bg-gray-900">
+  <%- include('../partials/nav'); -%>
+
+  <main>
+    <% if(!user.meethue.connected) { %>
+    <div class="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <div class="p-4 rounded-md bg-yellow-50">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg
+                class="w-5 h-5 text-yellow-400"
+                x-description="Heroicon name: exclamation"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-yellow-800">
+                Attention needed
+              </h3>
+              <div class="mt-2 text-sm text-yellow-700">
+                <p>
+                  You must connect your meet hue connect to use this app.
+                </p>
+                <a
+                  href="/dashboard/hue"
+                  class="inline-flex items-center px-3 py-1 mt-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Connect MeetHue
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } else { %>
+    <div class="px-4 mx-auto my-4 max-w-7xl sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <div class="p-4 rounded-md bg-green-50">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg
+                class="w-5 h-5 text-green-400"
+                x-description="Heroicon name: check-circle"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-green-800">
+                Hue Hub are now ready and linked
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %> <% if(user.meethue.connected && !user.lightgroup.default) { %>
+    <div id="pick-light-group" class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <div class="p-4 rounded-md bg-yellow-50">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg
+                class="w-5 h-5 text-yellow-400"
+                x-description="Heroicon name: exclamation"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-yellow-800">
+                Attention needed
+              </h3>
+              <div class="mt-2 text-sm text-yellow-700">
+                <p>
+                  Which group you want to use?
+                </p>
+                <button
+                  id="get-groups"
+                  type="button"
+                  class="inline-flex items-center px-3 py-1 mt-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Get groups
+                </button>
+
+                <div id="groups"></div>
+
+                <button
+                  id="pick-group"
+                  type="button"
+                  class="inline-flex items-center hidden px-3 py-1 mt-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Pick Group
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } else { %>
+    <div class="px-4 mx-auto my-4 max-w-7xl sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <div class="p-4 rounded-md bg-green-50">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg
+                class="w-5 h-5 text-green-400"
+                x-description="Heroicon name: check-circle"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-green-800">
+                Group has been selected and now is ready to go.
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+
+    <div
+      id="get-group-ready"
+      class="hidden px-4 mx-auto my-4 max-w-7xl sm:px-6 lg:px-8"
+    >
+      <div class="max-w-4xl mx-auto">
+        <div class="p-4 rounded-md bg-green-50">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg
+                class="w-5 h-5 text-green-400"
+                x-description="Heroicon name: check-circle"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-green-800">
+                Group has been selected and now is ready to go.
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% if(!user.channelPoint.default) { %>
+
+    <div
+      id="default-channel-point"
+      class="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8"
+    >
+      <div class="max-w-4xl mx-auto">
+        <div class="p-4 rounded-md bg-yellow-50">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg
+                class="w-5 h-5 text-yellow-400"
+                x-description="Heroicon name: exclamation"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-yellow-800">
+                Default Channel Point
+              </h3>
+              <div class="mt-2 text-sm text-yellow-700">
+                <p>
+                  Creates the channel point redeem for the default method of
+                  changing the colors.
+                </p>
+                <button
+                  id="create-default-channel-point"
+                  type="button"
+                  class="inline-flex items-center px-3 py-1 mt-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Start
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } else { %>
+    <div
+      id="default-channel-point-enabled"
+      class="px-4 mx-auto my-4 max-w-7xl sm:px-6 lg:px-8"
+    >
+      <div class="max-w-4xl mx-auto">
+        <div class="p-4 rounded-md bg-green-50">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg
+                class="w-5 h-5 text-green-400"
+                x-description="Heroicon name: check-circle"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-green-800">
+                Default Reward is ready.
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+    <div
+      id="default-channel-point-enabled"
+      class="hidden px-4 mx-auto my-4 max-w-7xl sm:px-6 lg:px-8"
+    >
+      <div class="max-w-4xl mx-auto">
+        <div class="p-4 rounded-md bg-green-50">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg
+                class="w-5 h-5 text-green-400"
+                x-description="Heroicon name: check-circle"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-green-800">
+                Default Reward is ready.
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    $(document).ready(() => {
+      let selectedGroup = null;
+      $('#create-default-channel-point').on('click', function() {
+        $('#default-channel-point').addClass('hidden');
+        $.ajax({
+          url: '/dashboard/channel-points/default',
+          type: 'post',
+          success: function(response) {
+            console.log(response);
+            $('#default-channel-point-enabled').removeClass('hidden');
+          },
+          error: function(response) {
+            console.log(response);
+          }
+        });
+      });
+      $('#get-groups').on('click', function() {
+        $.ajax({
+          url: '/dashboard/groups',
+          type: 'get',
+          success: function(response) {
+            const responseArray = Object.keys(response).map(key => {
+              return response[key];
+            });
+            $('#groups').append(function() {
+              var elem = $(
+                '<select id ="groups-select"  style="width:200px;margin-left:30px;margin-top:5px;">'
+              );
+              for (var i = 0; i < responseArray.length; i++) {
+                const row = responseArray[i];
+                const id = i + 1;
+                elem.append(
+                  '<option value="' + id + '">' + row['name'] + '</option>'
+                );
+              }
+              return elem;
+            });
+            $('#get-groups').addClass('hidden');
+            $('#pick-group').removeClass('hidden');
+          },
+
+          error: function(response) {
+            console.log(response);
+          }
+        });
+      });
+      $('#pick-group').on('click', function() {
+        selectedGroup = $('#groups :selected')
+          .val()
+          .trim();
+        $.ajax({
+          url: '/dashboard/groups',
+          type: 'POST',
+          data: {
+            group: selectedGroup
+          },
+          success: function(response) {
+            $('#pick-group').addClass('hidden');
+            $('#groups').addClass('hidden');
+            $('#pick-light-group').addClass('hidden');
+            $('#get-group-ready').removeClass('hidden');
+          },
+          error: function(response) {
+            console.log(response);
+          }
+        });
+      });
+
+      var ws;
+
+      function heartbeat() {
+        message = {
+          type: 'PING'
+        };
+        ws.send(JSON.stringify(message));
+      }
+
+      function nonce(length) {
+        var text = '';
+        var possible =
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for (var i = 0; i < length; i++) {
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return text;
+      }
+
+      function listen() {
+        message = {
+          type: 'LISTEN',
+          nonce: nonce(15),
+          data: {
+            topics: [`channel-points-channel-v1.<%= user.twitch.id %>`],
+            auth_token: '<%= user.twitch.accessToken %>'
+          }
+        };
+        ws.send(JSON.stringify(message));
+      }
+
+      function connect() {
+        var heartbeatInterval = 1000 * 60; //ms between PING's
+        var reconnectInterval = 1000 * 3; //ms to wait before reconnect
+        var heartbeatHandle;
+
+        ws = new WebSocket('wss://pubsub-edge.twitch.tv');
+
+        ws.onopen = function(event) {
+          heartbeat();
+          heartbeatHandle = setInterval(heartbeat, heartbeatInterval);
+
+          setTimeout(() => {
+            listen();
+          });
+        };
+
+        ws.onerror = function(error) {
+          console.log(error);
+        };
+
+        ws.onmessage = function(event) {
+          message = JSON.parse(event.data);
+          if (message.type == 'RECONNECT') {
+            console.log('reconnecting');
+            setTimeout(connect, reconnectInterval);
+          }
+          console.log(message.type);
+          if (message.type == 'MESSAGE') {
+            messageData = JSON.parse(message.data.message);
+            console.log('Got message', messageData.data.redemption.reward.id);
+            const lightId = selectedGroup || '<%= user.lightgroup.default %>';
+            console.log();
+            if (
+              messageData.data.redemption.reward.id ===
+              '<%= user.channelPoint.default %>'
+            ) {
+              $.ajax({
+                url: `/dashboard/groups/${lightId}`,
+                type: 'POST',
+                data: {
+                  color: messageData.data.redemption.user_input
+                },
+                success: function(response) {
+                  console.log('light change reqursted')
+                },
+                error: function(response) {
+                  console.log(response);
+                }
+              });
+            }
+          }
+
+          ws.onclose = function() {
+            console.log('socket closed');
+            clearInterval(heartbeatHandle);
+            console.log('reconnecting');
+            setTimeout(connect, reconnectInterval);
+          };
+        };
+      }
+      connect();
+
+      const client = new tmi.Client({
+        options: { debug: true, messagesLogLevel: 'info' },
+        connection: {
+          reconnect: true,
+          secure: true
+        },
+        channels: ['<%= user.username %>']
+      });
+      client.connect().catch(console.error);
+    });
+  </script>
+</body>
+<%- include('../partials/footer'); -%>
