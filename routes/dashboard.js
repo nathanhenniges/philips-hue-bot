@@ -165,7 +165,6 @@ router.post('/groups', async (req, res) => {
 router.post('/groups/:id', async (req, res) => {
   try {
     const colorParsed = parse(req.body.color);
-    console.log(colorParsed)
     const xy = converter.calculateXY(
       colorParsed.rgb[0],
       colorParsed.rgb[1],
